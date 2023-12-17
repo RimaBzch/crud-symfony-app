@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+   {{ form_start(form) }}
+  {{ form_widget(form) }}
+  {{ form_end (form)}}  
+   <table class="table table-hover table-striped" border="1">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Type</th>
+      <th>Company</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for job in lesJobs %}
+      <tr>
+        <td>{{ job.id }}</td>
+        <td>{{ job.type | upper}} </td>
+        <td>{{ job.company }}
+        <td>{{ job.getExpiresAt() | date('d/m/yy')}} </td>
+        <td>{{ job.description }}</td>
+         <td>{{ job.email }}</td>
+        <td>
+          <a class="btn btn-primary" href="#">voir</a>
+      <a class="btn btn-success" href="{{ path('edit_user', {'id':job.id }) }}">Modifier</a>
+         <a class="btn btn-danger" href="{{ path('cand_delete', {'id':job.id }) }}"
+onclick="return confirm('Are you sure to delete!{{ job.type }}')">Supprimer</a>
+        </td>
+      </tr>
+   
+    {% endfor %}
+    </tbody>
+  </table>
+  
+{% endblock %}

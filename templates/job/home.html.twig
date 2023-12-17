@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Home!{% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end (form)}}
+<table class="table table-hover table-striped" border="1">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nom & Prenom </th>
+            <th>Contenu</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+{% for candidat in lesCandidats %}
+<tr>
+    <td>{{candidat.id}}</td>
+    <td>{{candidat.candidat |upper }}</td>
+    <td>{{candidat.datec | date('d/m/yy')}}</td>
+    <td>{{candidat.contenu}}</td>
+<td>
+    
+    <a class="btn btn-primary" href="#">voir</a>
+    <a class="btn btn-success" href="{{ path('edit_user', {'id':candidat.id }) }}">Modifier</a>
+    <a class="btn btn-danger" href="{{ path('cand_delete', {'id':candidat.id }) }}"
+onclick="return confirm('Are you sure to delete!{{ candidat.candidat}}')">Supprimer</a>    
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
